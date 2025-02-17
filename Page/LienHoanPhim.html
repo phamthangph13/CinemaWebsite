@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hoan Phim & Tuần Phim - HayGhe Cinema</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="Style/LienHoanPhim.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="festival-container">
+        <!-- Hero Section -->
+        <section class="festival-hero">
+            <div class="hero-content">
+                <h1>Liên Hoan Phim & Tuần Phim</h1>
+                <p>Khám phá những lễ hội điện ảnh đặc sắc và tuần phim chủ đề tại HayGhe Cinema</p>
+            </div>
+        </section>
+
+        <!-- Current Festival -->
+        <section class="current-festival">
+            <div class="section-header">
+                <h2>Sự Kiện Đang Diễn Ra</h2>
+                <div class="festival-timer">
+                    <span>Còn lại: </span>
+                    <div class="timer" id="festival-countdown">05:23:45:12</div>
+                </div>
+            </div>
+            
+            <div class="festival-highlight">
+                <div class="festival-image">
+                    <img src="https://i.imgur.com/YHHHZbv.jpg" alt="Japanese Film Festival 2024">
+                    <div class="festival-badge">Đang diễn ra</div>
+                </div>
+                <div class="festival-info">
+                    <h3>Liên Hoan Phim Nhật Bản 2024</h3>
+                    <div class="festival-meta">
+                        <span><i class="far fa-calendar"></i> 20/03 - 27/03/2024</span>
+                        <span><i class="fas fa-film"></i> 15 phim</span>
+                        <span><i class="fas fa-map-marker-alt"></i> HayGhe Cinema</span>
+                    </div>
+                    <p class="festival-desc">
+                        Khám phá nền điện ảnh Nhật Bản đương đại qua những tác phẩm đặc sắc nhất, từ phim nghệ thuật đến anime.
+                    </p>
+                    <div class="festival-actions">
+                        <button class="btn-primary">Xem lịch chiếu</button>
+                        <button class="btn-secondary">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Festivals -->
+        <section class="upcoming-festivals">
+            <h2>Sắp Diễn Ra</h2>
+            <div class="festivals-grid">
+                <!-- Festival Card 1 -->
+                <div class="festival-card">
+                    <div class="card-image">
+                        <img src="https://i.imgur.com/2Qx0RyK.jpg" alt="Korean Film Week">
+                        <div class="card-date">
+                            <span class="month">Tháng 4</span>
+                            <span class="day">10-17</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Tuần Phim Hàn Quốc</h4>
+                        <p>7 ngày với những bộ phim Hàn Quốc đình đám nhất 2024</p>
+                        <div class="card-meta">
+                            <span><i class="fas fa-film"></i> 10 phim</span>
+                            <span><i class="fas fa-ticket-alt"></i> Từ 75.000đ</span>
+                        </div>
+                        <button class="btn-outline">Đặt vé trước</button>
+                    </div>
+                </div>
+
+                <!-- Festival Card 2 -->
+                <div class="festival-card">
+                    <div class="card-image">
+                        <img src="https://i.imgur.com/8KYzTmP.jpg" alt="European Film Festival">
+                        <div class="card-date">
+                            <span class="month">Tháng 5</span>
+                            <span class="day">1-15</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Liên Hoan Phim Châu Âu</h4>
+                        <p>Hai tuần với những kiệt tác điện ảnh từ khắp Châu Âu</p>
+                        <div class="card-meta">
+                            <span><i class="fas fa-film"></i> 20 phim</span>
+                            <span><i class="fas fa-ticket-alt"></i> Từ 90.000đ</span>
+                        </div>
+                        <button class="btn-outline">Đặt vé trước</button>
+                    </div>
+                </div>
+
+                <!-- Festival Card 3 -->
+                <div class="festival-card">
+                    <div class="card-image">
+                        <img src="https://i.imgur.com/vqJYHBh.jpg" alt="Vietnam Film Week">
+                        <div class="card-date">
+                            <span class="month">Tháng 6</span>
+                            <span class="day">5-12</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Tuần Phim Việt Nam</h4>
+                        <p>Tôn vinh những tác phẩm điện ảnh Việt Nam xuất sắc</p>
+                        <div class="card-meta">
+                            <span><i class="fas fa-film"></i> 12 phim</span>
+                            <span><i class="fas fa-ticket-alt"></i> Từ 60.000đ</span>
+                        </div>
+                        <button class="btn-outline">Đặt vé trước</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Past Festivals -->
+        <section class="past-festivals">
+            <h2>Đã Diễn Ra</h2>
+            <div class="festivals-timeline">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Tháng 2/2024</div>
+                        <h4>Oscar Week 2024</h4>
+                        <p>Tuần lễ chiếu những bộ phim được đề cử giải Oscar 2024</p>
+                        <a href="#" class="btn-text">Xem lại highlights <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Tháng 1/2024</div>
+                        <h4>Asian Film Festival</h4>
+                        <p>Liên hoan phim Châu Á với sự tham gia của 8 quốc gia</p>
+                        <a href="#" class="btn-text">Xem lại highlights <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="festival-newsletter">
+            <div class="newsletter-content">
+                <h3>Đừng Bỏ Lỡ Sự Kiện Nào!</h3>
+                <p>Đăng ký nhận thông tin về các liên hoan phim và tuần phim sắp tới</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn">
+                    <button type="submit">Đăng ký</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về HayGhe</h3>
+                <p>Rạp chiếu phim hàng đầu với trải nghiệm xem phim tuyệt vời</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <p>Email: contact@hayghe.com</p>
+                <p>Hotline: 1900 xxxx</p>
+            </div>
+            <div class="footer-section">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load header
+        $(function(){
+            $("#header-placeholder").load("/header.html", function() {
+                $('nav a').removeClass('active');
+                $('nav a[href="#"]').eq(5).addClass('active');
+            });
+        });
+
+        // Countdown Timer
+        function updateTimer() {
+            // Add countdown logic here
+        }
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

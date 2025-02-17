@@ -1,0 +1,32 @@
+{
+    "movies": [
+        {
+            "title": "Godzilla x Kong: Đế Chế Mới",
+            "genre": "Hành động, Phiêu lưu",
+            "duration": "115 phút",
+            "image": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lTpnAtn1hWXDLxEmkD28l6UyPlF.jpg",
+            "buttonText": "Đặt vé ngay"
+        },
+        {
+            "title": "Dune: Hành Tinh Cát - Phần 2",
+            "genre": "Khoa học viễn tưởng",
+            "duration": "166 phút",
+            "image": "https://th.bing.com/th?id=OSK.7ZTAP31F9iuIrYtqx6mEzU10efR-m0iH-9B_CUGr3k8&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+            "buttonText": "Đặt vé ngay"
+        },
+        {
+            "title": "Kung Fu Panda 4",
+            "genre": "Hoạt hình, Hài hước",
+            "duration": "94 phút",
+            "image": "https://th.bing.com/th?id=OSK.d2jRLfuQqcOLdOtXWhXC8BV3KOBW1-HHQRfLExmJjrU&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+            "buttonText": "Đặt vé ngay"
+        },
+        {
+            "title": "Na Tra: Ma đồng giáng thế",
+            "genre": "Hoạt hình, Hài hướchước",
+            "duration": "118 phút",
+            "image": "https://th.bing.com/th?id=OSK.VcAFFw5Wu6xKIAjqklRUpeCkUJBCwRa_QDr8R999jiI&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+            "buttonText": "Đặt vé ngay"
+        }
+    ]
+}

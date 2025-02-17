@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giá Vé - Rạp Chiếu Phim HayGhe</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="Style/GiaVe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="price-container">
+        <section class="price-banner">
+            <h1>Bảng Giá Vé</h1>
+            <p>Giá vé xem phim tại HayGhe Cinema</p>
+        </section>
+
+        <!-- Price Categories -->
+        <section class="price-categories">
+            <div class="category-tabs">
+                <button class="tab-btn active" data-tab="2d">Phim 2D</button>
+                <button class="tab-btn" data-tab="3d">Phim 3D</button>
+                <button class="tab-btn" data-tab="imax">IMAX</button>
+                <button class="tab-btn" data-tab="4dx">4DX</button>
+            </div>
+
+            <!-- 2D Prices -->
+            <div class="price-table active" id="2d">
+                <h2>Giá Vé Phim 2D</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Đối tượng</th>
+                                <th>Thứ 2 - Thứ 6</th>
+                                <th>Thứ 7 - Chủ nhật</th>
+                                <th>Ngày lễ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Người lớn</td>
+                                <td>75.000đ</td>
+                                <td>95.000đ</td>
+                                <td>110.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Học sinh / Sinh viên<sup>*</sup></td>
+                                <td>60.000đ</td>
+                                <td>75.000đ</td>
+                                <td>90.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Trẻ em (dưới 12 tuổi)</td>
+                                <td>55.000đ</td>
+                                <td>70.000đ</td>
+                                <td>85.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Người cao tuổi (trên 60 tuổi)</td>
+                                <td>55.000đ</td>
+                                <td>70.000đ</td>
+                                <td>85.000đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3D Prices -->
+            <div class="price-table" id="3d">
+                <h2>Giá Vé Phim 3D</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Đối tượng</th>
+                                <th>Thứ 2 - Thứ 6</th>
+                                <th>Thứ 7 - Chủ nhật</th>
+                                <th>Ngày lễ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Người lớn</td>
+                                <td>90.000đ</td>
+                                <td>110.000đ</td>
+                                <td>130.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Học sinh / Sinh viên<sup>*</sup></td>
+                                <td>75.000đ</td>
+                                <td>90.000đ</td>
+                                <td>110.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Trẻ em (dưới 12 tuổi)</td>
+                                <td>70.000đ</td>
+                                <td>85.000đ</td>
+                                <td>100.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Người cao tuổi (trên 60 tuổi)</td>
+                                <td>70.000đ</td>
+                                <td>85.000đ</td>
+                                <td>100.000đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- IMAX Prices -->
+            <div class="price-table" id="imax">
+                <h2>Giá Vé IMAX</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Đối tượng</th>
+                                <th>Thứ 2 - Thứ 6</th>
+                                <th>Thứ 7 - Chủ nhật</th>
+                                <th>Ngày lễ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Người lớn</td>
+                                <td>180.000đ</td>
+                                <td>220.000đ</td>
+                                <td>250.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Học sinh / Sinh viên<sup>*</sup></td>
+                                <td>160.000đ</td>
+                                <td>190.000đ</td>
+                                <td>220.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Trẻ em (dưới 12 tuổi)</td>
+                                <td>150.000đ</td>
+                                <td>180.000đ</td>
+                                <td>200.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Người cao tuổi (trên 60 tuổi)</td>
+                                <td>150.000đ</td>
+                                <td>180.000đ</td>
+                                <td>200.000đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4DX Prices -->
+            <div class="price-table" id="4dx">
+                <h2>Giá Vé 4DX</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Đối tượng</th>
+                                <th>Thứ 2 - Thứ 6</th>
+                                <th>Thứ 7 - Chủ nhật</th>
+                                <th>Ngày lễ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Người lớn</td>
+                                <td>200.000đ</td>
+                                <td>240.000đ</td>
+                                <td>280.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Học sinh / Sinh viên<sup>*</sup></td>
+                                <td>180.000đ</td>
+                                <td>210.000đ</td>
+                                <td>250.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Trẻ em (dưới 12 tuổi)</td>
+                                <td>170.000đ</td>
+                                <td>200.000đ</td>
+                                <td>230.000đ</td>
+                            </tr>
+                            <tr>
+                                <td>Người cao tuổi (trên 60 tuổi)</td>
+                                <td>170.000đ</td>
+                                <td>200.000đ</td>
+                                <td>230.000đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section class="price-notes">
+            <h3>Lưu ý:</h3>
+            <ul>
+                <li><sup>*</sup> Áp dụng cho học sinh, sinh viên khi xuất trình thẻ</li>
+                <li>Giá vé trên đã bao gồm VAT</li>
+                <li>Giá vé có thể thay đổi theo từng thời điểm</li>
+                <li>Ngày lễ áp dụng theo quy định của Nhà nước</li>
+                <li>Trẻ em dưới 0.8m: Miễn phí (không có ghế ngồi riêng)</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về HayGhe</h3>
+                <p>Rạp chiếu phim hàng đầu với trải nghiệm xem phim tuyệt vời</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <p>Email: contact@hayghe.com</p>
+                <p>Hotline: 1900 xxxx</p>
+            </div>
+            <div class="footer-section">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load header
+        $(function(){
+            $("#header-placeholder").load("/header.html", function() {
+                $('nav a').removeClass('active');
+                $('nav a[href="#"]').eq(4).addClass('active'); // Select "Giá vé" link
+            });
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                document.querySelector('.tab-btn.active').classList.remove('active');
+                button.classList.add('active');
+
+                // Show corresponding price table
+                document.querySelector('.price-table.active').classList.remove('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

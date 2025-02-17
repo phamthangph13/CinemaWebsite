@@ -1,0 +1,368 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: white;
+}
+
+/* Header Styles */
+header {
+    background-color: rgba(26, 26, 26, 0.95);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo h1 {
+    color: #e50914;
+    font-size: 2rem;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+
+nav a:hover, nav a.active {
+    color: #e50914;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #e50914;
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.auth-buttons button {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.login {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white !important;
+}
+
+.login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #e50914 !important;
+    color: #e50914;
+}
+
+.register {
+    background-color: #e50914;
+    color: white;
+}
+
+.register:hover {
+    background-color: #ff0f1f;
+    transform: translateY(-2px);
+}
+
+/* Hero Slider Styles */
+.hero-slider {
+    margin-top: 80px;
+    width: 100%;
+    position: relative;
+}
+
+.swiper {
+    width: 100%;
+    height: calc(100vh - 80px);
+    min-height: 600px;
+}
+
+.swiper-slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background: rgba(229, 9, 20, 0.8);
+}
+
+.swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+    background: #e50914;
+    opacity: 1;
+}
+
+/* Movies Section Styles */
+.movies-section {
+    padding: 4rem 2rem;
+}
+
+.movies-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.movie-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.movie-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(229, 9, 20, 0.3);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.movie-card:hover img {
+    transform: scale(1.05);
+}
+
+.movie-card h3 {
+    padding: 1.2rem 1.2rem 0.8rem;
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.movie-card p {
+    padding: 0 1.2rem;
+    color: #cccccc;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.movie-card button {
+    width: calc(100% - 2.4rem);
+    margin: 1.2rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #e50914;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.movie-card button:hover {
+    background-color: #ff0f1f;
+    transform: translateY(-2px);
+}
+
+.movie-card button.notify-me {
+    background-color: transparent;
+    border: 2px solid #e50914;
+    color: #e50914;
+}
+
+.movie-card button.notify-me:hover {
+    background-color: #e50914;
+    color: white;
+}
+
+/* Coming Soon Section Specific Styles */
+.coming-soon .movie-card {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.coming-soon .movie-card::before {
+    content: 'Sắp chiếu';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #e50914;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 1;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 3rem 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #e50914;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #e50914;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .auth-buttons {
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .auth-buttons button {
+        width: 45%;
+    }
+
+    .movies-section h2 {
+        font-size: 2rem;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .movie-card img {
+        height: 350px;
+    }
+
+    .movie-card h3 {
+        font-size: 1.1rem;
+        padding: 1rem 1rem 0.6rem;
+    }
+
+    .movie-card button {
+        width: calc(100% - 2rem);
+        margin: 1rem;
+        padding: 0.8rem;
+    }
+
+    .hero-slider {
+        margin-top: 120px;
+    }
+
+    .swiper {
+        height: 400px;
+        min-height: auto;
+    }
+}
