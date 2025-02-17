@@ -177,3 +177,157 @@
         justify-content: center;
     }
 }
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    margin: 2% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 12px;
+    color: white;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.screen {
+    background: linear-gradient(to bottom, #666, #333);
+    height: 70px;
+    margin: 15px 0 30px;
+    transform: perspective(300px) rotateX(-5deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
+}
+
+.screen-text {
+    text-align: center;
+    padding-top: 25px;
+    color: #fff;
+}
+
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.seating-plan {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.seat-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.row-label {
+    width: 30px;
+    text-align: center;
+    color: #fff;
+}
+
+.seat {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    margin: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.seat.available {
+    background-color: #404040;
+}
+
+.seat.occupied {
+    background-color: #e50914;
+    cursor: not-allowed;
+}
+
+.seat.selected {
+    background-color: #2ecc71;
+}
+
+.seat.vip {
+    background-color: #404040;
+    border: 2px solid #ffd700;
+}
+
+.seat.vip.selected {
+    background-color: #2ecc71;
+}
+
+.seat.couple {
+    background-color: #404040;
+    width: 70px;
+    border: 2px solid #ff69b4;
+}
+
+.seat.couple.selected {
+    background-color: #2ecc71;
+}
+
+.booking-summary {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.book-seats-btn {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.book-seats-btn:hover {
+    background-color: #ff0f1a;
+}

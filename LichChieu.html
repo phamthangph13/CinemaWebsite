@@ -127,6 +127,43 @@
         </div>
     </main>
 
+    <!-- Seat Selection Modal -->
+    <div id="seatModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Chọn Ghế</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="screen">
+                <div class="screen-text">Màn hình</div>
+            </div>
+            <div class="seat-legend">
+                <div class="legend-item">
+                    <div class="seat available"></div>
+                    <span>Ghế trống</span>
+                </div>
+                <div class="legend-item">
+                    <div class="seat occupied"></div>
+                    <span>Ghế đã đặt</span>
+                </div>
+                <div class="legend-item">
+                    <div class="seat vip"></div>
+                    <span>Ghế VIP</span>
+                </div>
+                <div class="legend-item">
+                    <div class="seat couple"></div>
+                    <span>Ghế đôi</span>
+                </div>
+            </div>
+            <div class="seating-plan"></div>
+            <div class="booking-summary">
+                <div class="selected-seats">Ghế đã chọn: <span id="selectedSeatsText">Chưa chọn ghế</span></div>
+                <div class="total-amount">Tổng tiền: <span id="totalAmount">0đ</span></div>
+                <button id="bookSeatsBtn" class="book-seats-btn">Đặt vé</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -160,5 +197,6 @@
             });
         });
     </script>
+    <script src="../book.js"></script>
 </body>
 </html>
