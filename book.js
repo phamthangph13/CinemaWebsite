@@ -115,4 +115,53 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Đặt vé thành công!');
         modal.style.display = 'none';
     });
+
+    // Thêm hàm để format date
+    function formatDate(date) {
+        return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+    }
+
+    function getDayName(date) {
+        const days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+        return days[date.getDay()];
+    }
+
+    // Cập nhật date selectors
+    function updateDateSelectors() {
+        const dateSelectors = document.querySelectorAll('.date-selector');
+        const today = new Date();
+
+        // Cập nhật cho ngày hôm nay
+        dateSelectors[0].querySelector('.day').textContent = 'Hôm nay';
+        dateSelectors[0].querySelector('.date').textContent = formatDate(today);
+        dateSelectors[0].dataset.date = today.toISOString();
+
+        // Cập nhật cho ngày mai
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateSelectors[1].querySelector('.day').textContent = 'Ngày mai';
+        dateSelectors[1].querySelector('.date').textContent = formatDate(tomorrow);
+        dateSelectors[1].dataset.date = tomorrow.toISOString();
+
+        // Cập nhật cho ngày kia
+        const dayAfter = new Date(today);
+        dayAfter.setDate(dayAfter.getDate() + 2);
+        dateSelectors[2].querySelector('.day').textContent = getDayName(dayAfter);
+        dateSelectors[2].querySelector('.date').textContent = formatDate(dayAfter);
+        dateSelectors[2].dataset.date = dayAfter.toISOString();
+    }
+
+    // Xử lý sự kiện click vào date selector
+    const dateSelectors = document.querySelectorAll('.date-selector');
+    dateSelectors.forEach(selector => {
+        selector.addEventListener('click', () => {
+            // Remove active class from all selectors
+            dateSelectors.forEach(s => s.classList.remove('active'));
+            // Add active class to clicked selector
+            selector.classList.add('active');
+        });
+    });
+
+    // Khởi tạo dates
+    updateDateSelectors();
 });
