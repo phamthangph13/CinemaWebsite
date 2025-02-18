@@ -129,10 +129,9 @@
     <script>
         // Load header
         $(function(){
-            $("#header-placeholder").load("header.html", function() {
-                // After loading header, set active class for current page
+            $("#header-placeholder").load("/header.html", function() {
                 $('nav a').removeClass('active');
-                $('nav a[href="index.html"]').addClass('active');
+                $('nav a[href="/index.html"]').addClass('active');
             });
         });
     </script>

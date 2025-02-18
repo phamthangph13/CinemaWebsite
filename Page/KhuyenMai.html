@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khuyến Mãi - Rạp Chiếu Phim HayGhe</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../Page/Style/KhuyenMai.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="promotion-container">
+        <!-- Banner Section -->
+        <section class="promotion-banner">
+            <h1>Ưu Đãi Đặc Biệt</h1>
+            <p>Khám phá những ưu đãi hấp dẫn dành riêng cho bạn</p>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="promotion-filter">
+            <button class="filter-btn active" data-filter="all">Tất cả</button>
+            <button class="filter-btn" data-filter="combo">Combo</button>
+            <button class="filter-btn" data-filter="member">Thành viên</button>
+            <button class="filter-btn" data-filter="special">Sự kiện đặc biệt</button>
+        </section>
+
+        <!-- Promotions Grid -->
+        <section class="promotions-grid">
+            <!-- Promotion Card 1 -->
+            <div class="promotion-card" data-category="combo">
+                <div class="promotion-image">
+                    <img src="https://i.imgur.com/YR5FXVF.jpg" alt="Combo Kung Fu Panda">
+                    <span class="promo-tag">Combo</span>
+                </div>
+                <div class="promotion-content">
+                    <h3>Combo Kung Fu Panda 4</h3>
+                    <div class="promo-period">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Đến 31/03/2024</span>
+                    </div>
+                    <p>Combo bắp nước độc quyền + Ly Po siêu cute khi mua vé xem Kung Fu Panda 4</p>
+                    <div class="promo-price">
+                        <span class="original">180.000đ</span>
+                        <span class="discounted">129.000đ</span>
+                    </div>
+                    <button class="promo-btn">Nhận ưu đãi</button>
+                </div>
+            </div>
+
+            <!-- Promotion Card 2 -->
+            <div class="promotion-card" data-category="member">
+                <div class="promotion-image">
+                    <img src="https://i.imgur.com/8KYzTmP.jpg" alt="Member Day">
+                    <span class="promo-tag">Thành viên</span>
+                </div>
+                <div class="promotion-content">
+                    <h3>Thứ Tư Vui Vẻ</h3>
+                    <div class="promo-period">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Áp dụng mỗi thứ 4</span>
+                    </div>
+                    <p>Giảm 50% giá vé cho thành viên HayGhe khi đặt vé vào thứ 4 hàng tuần</p>
+                    <div class="promo-discount">
+                        <span class="discount-tag">-50%</span>
+                    </div>
+                    <button class="promo-btn">Đăng ký thành viên</button>
+                </div>
+            </div>
+
+            <!-- Promotion Card 3 -->
+            <div class="promotion-card" data-category="special">
+                <div class="promotion-image">
+                    <img src="https://i.imgur.com/2Qx0RyK.jpg" alt="Special Event">
+                    <span class="promo-tag">Sự kiện</span>
+                </div>
+                <div class="promotion-content">
+                    <h3>Đêm Marathon Dune</h3>
+                    <div class="promo-period">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>29/03/2024</span>
+                    </div>
+                    <p>Xem liên tiếp Dune 1 & 2 với giá đặc biệt + Quà tặng độc quyền</p>
+                    <div class="promo-price">
+                        <span class="original">300.000đ</span>
+                        <span class="discounted">199.000đ</span>
+                    </div>
+                    <button class="promo-btn">Đặt vé ngay</button>
+                </div>
+            </div>
+
+            <!-- Promotion Card 4 -->
+            <div class="promotion-card" data-category="combo">
+                <div class="promotion-image">
+                    <img src="https://i.imgur.com/vqJYHBh.jpg" alt="Family Combo">
+                    <span class="promo-tag">Combo</span>
+                </div>
+                <div class="promotion-content">
+                    <h3>Family Combo</h3>
+                    <div class="promo-period">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Đến 15/04/2024</span>
+                    </div>
+                    <p>4 vé xem phim + 2 bắp lớn + 4 nước + 2 snack cho cả gia đình</p>
+                    <div class="promo-price">
+                        <span class="original">750.000đ</span>
+                        <span class="discounted">549.000đ</span>
+                    </div>
+                    <button class="promo-btn">Nhận ưu đãi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h2>Đừng Bỏ Lỡ Ưu Đãi!</h2>
+                <p>Đăng ký nhận thông tin khuyến mãi mới nhất từ HayGhe</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Nhập email của bạn">
+                    <button type="submit">Đăng ký</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+   <!-- Footer -->
+   <footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Về HayGhe</h3>
+            <p>Rạp chiếu phim hàng đầu với trải nghiệm xem phim tuyệt vời</p>
+        </div>
+        <div class="footer-section">
+            <h3>Liên hệ</h3>
+            <p>Email: contact@hayghe.com</p>
+            <p>Hotline: 1900 xxxx</p>
+        </div>
+        <div class="footer-section">
+            <h3>Theo dõi chúng tôi</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        // Load header
+        $(function(){
+            $("#header-placeholder").load("/header.html", function() {
+                $('nav a').removeClass('active');
+                $('nav a[href="/Page/KhuyenMai.html"]').addClass('active');
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                button.classList.add('active');
+
+                // Filter promotions
+                const filter = button.dataset.filter;
+                document.querySelectorAll('.promotion-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+<!-- Thêm vào cuối mỗi file HTML trong thư mục Page/ -->
+<link rel="stylesheet" href="../Auth.css">
+<script src="../Auth.js"></script>

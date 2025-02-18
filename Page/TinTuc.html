@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức - Rạp Chiếu Phim HayGhe</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/Page/Style/TinTuc.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="news-container">
+        <!-- News Categories -->
+        <div class="news-categories">
+            <button class="category-btn active" data-category="all">Tất cả</button>
+            <button class="category-btn" data-category="movie-news">Tin phim</button>
+            <button class="category-btn" data-category="events">Sự kiện</button>
+            <button class="category-btn" data-category="promotions">Khuyến mãi</button>
+        </div>
+
+        <!-- Featured News -->
+        <section class="featured-news">
+            <div class="featured-article">
+                <img src="https://i.imgur.com/8KYzTmP.jpg" alt="Godzilla x Kong">
+                <div class="featured-content">
+                    <span class="news-tag">Tin phim</span>
+                    <h2>Godzilla x Kong: Đế Chế Mới - Cuộc Chiến Của Những Titan</h2>
+                    <p class="news-meta">
+                        <span><i class="far fa-calendar"></i> 20/03/2024</span>
+                        <span><i class="far fa-eye"></i> 1.5K lượt xem</span>
+                    </p>
+                    <p class="news-excerpt">Khám phá những bí mật đằng sau cuộc chiến epic giữa Godzilla và Kong trong phần phim mới nhất của MonsterVerse...</p>
+                    <a href="#" class="read-more">Đọc thêm</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Grid -->
+        <section class="news-grid">
+            <!-- News Item 1 -->
+            <article class="news-card" data-category="events">
+                <img src="https://i.imgur.com/2Qx0RyK.jpg" alt="Dune 2 Premiere">
+                <div class="news-content">
+                    <span class="news-tag">Sự kiện</span>
+                    <h3>Buổi Công Chiếu Dune: Phần 2 Tại HayGhe Cinema</h3>
+                    <p class="news-meta">
+                        <span><i class="far fa-calendar"></i> 19/03/2024</span>
+                        <span><i class="far fa-eye"></i> 856 lượt xem</span>
+                    </p>
+                    <p class="news-excerpt">Đêm công chiếu hoành tráng với sự góp mặt của nhiều nghệ sĩ nổi tiếng...</p>
+                    <a href="#" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+
+            <!-- News Item 2 -->
+            <article class="news-card" data-category="promotions">
+                <img src="https://i.imgur.com/YR5FXVF.jpg" alt="Kung Fu Panda 4 Promotion">
+                <div class="news-content">
+                    <span class="news-tag">Khuyến mãi</span>
+                    <h3>Combo Kung Fu Panda 4 Siêu Tiết Kiệm</h3>
+                    <p class="news-meta">
+                        <span><i class="far fa-calendar"></i> 18/03/2024</span>
+                        <span><i class="far fa-eye"></i> 723 lượt xem</span>
+                    </p>
+                    <p class="news-excerpt">Đặt vé xem Kung Fu Panda 4 và nhận ngay combo bắp nước độc quyền...</p>
+                    <a href="#" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+
+            <!-- News Item 3 -->
+            <article class="news-card" data-category="movie-news">
+                <img src="https://i.imgur.com/vqJYHBh.jpg" alt="Inside Out 2">
+                <div class="news-content">
+                    <span class="news-tag">Tin phim</span>
+                    <h3>Inside Out 2: Cuộc Phiêu Lưu Mới Của Riley</h3>
+                    <p class="news-meta">
+                        <span><i class="far fa-calendar"></i> 17/03/2024</span>
+                        <span><i class="far fa-eye"></i> 645 lượt xem</span>
+                    </p>
+                    <p class="news-excerpt">Pixar hé lộ những cảm xúc mới sẽ xuất hiện trong Inside Out 2...</p>
+                    <a href="#" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+
+            <!-- News Item 4 -->
+            <article class="news-card" data-category="events">
+                <img src="https://i.imgur.com/RLlL2kQ.jpg" alt="Deadpool 3">
+                <div class="news-content">
+                    <span class="news-tag">Sự kiện</span>
+                    <h3>Fan Meeting Deadpool & Wolverine Tại HayGhe</h3>
+                    <p class="news-meta">
+                        <span><i class="far fa-calendar"></i> 16/03/2024</span>
+                        <span><i class="far fa-eye"></i> 912 lượt xem</span>
+                    </p>
+                    <p class="news-excerpt">Cơ hội gặp gỡ và giao lưu cùng các nghệ sĩ cosplay Deadpool...</p>
+                    <a href="#" class="read-more">Đọc thêm</a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <span>...</span>
+            <a href="#">10</a>
+            <a href="#" class="next">Trang sau <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về HayGhe</h3>
+                <p>Rạp chiếu phim hàng đầu với trải nghiệm xem phim tuyệt vời</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <p>Email: contact@hayghe.com</p>
+                <p>Hotline: 1900 xxxx</p>
+            </div>
+            <div class="footer-section">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load header
+        $(function(){
+            $("#header-placeholder").load("../header.html", function() {
+                // After loading header, set active class for current page
+                $('nav a').removeClass('active');
+                $('nav a[href="Page/TinTuc.html"]').addClass('active');
+            });
+        });
+
+        // Category filter
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                document.querySelector('.category-btn.active').classList.remove('active');
+                button.classList.add('active');
+
+                // Filter news
+                const category = button.dataset.category;
+                document.querySelectorAll('.news-card').forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
