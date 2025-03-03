@@ -12,7 +12,7 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, List
 import jwt as PyJWT
 import bcrypt
 from datetime import datetime, timedelta
@@ -34,19 +34,32 @@ app = FastAPI(
 )
 
 # CORS middleware
+# CORS configuration
+origins = [
+    "http://localhost:3000",  # React development server
+    "http://localhost:5173",  # Vite development server
+    "http://127.0.0.1:5173",  # Alternative Vite URL
+    "http://localhost:8080",  # Alternative development port
+    "http://127.0.0.1:5500",  # Live Server port
+    "file://",  # Local file system
+    "http://127.0.0.1:8000",
+    "null"  # Handle requests with no origin
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "Accept"],
+    expose_headers=["*"],
+    max_age=600,  # Cache preflight requests for 10 minutes
 )
 
 # MongoDB connection
 client = MongoClient('mongodb://localhost:27017/')
 db = client.CNM
 users_collection = db.Users
-
 
 
 # Cấu hình JWT
@@ -76,6 +89,117 @@ class ForgotPassword(BaseModel):
 class ResetPassword(BaseModel):
     token: str
     new_password: str
+
+
+# Add these new models after the existing models
+class Movie(BaseModel):
+    id: str
+    title: str
+    description: str
+    duration: int
+    genre: str
+    release_date: str
+    poster_url: str
+    trailer_url: str
+
+class Showtime(BaseModel):
+    id: str
+    movie_id: str
+    theater_id: str
+    start_time: datetime
+    end_time: datetime
+    available_seats: List[str]
+
+# Add these new endpoints before the custom_openapi function
+@app.get("/api/movies/now-showing")
+async def get_now_showing_movies():
+    movies = db.movies.find({
+        "status": "Now Showing"
+    })
+    movie_list = []
+    for movie in movies:
+        movie["_id"] = str(movie["_id"])  # Convert ObjectId to string
+        movie_list.append(movie)
+    return movie_list
+
+@app.get("/api/movies/coming-soon") 
+async def get_coming_soon_movies():
+    movies = db.movies.find({
+        "status": "Coming Soon"
+    })
+    movie_list = []
+    for movie in movies:
+        movie["_id"] = str(movie["_id"])  # Convert ObjectId to string
+        movie_list.append(movie)
+    return movie_list
+
+@app.get("/api/showtimes") 
+async def get_all_showtimes():
+    try:
+        showtime_data = db.showtimes.find_one()
+        if not showtime_data:
+            raise HTTPException(status_code=404, detail="No showtime data found")
+        # Convert ObjectId to string
+        showtime_data["_id"] = str(showtime_data["_id"])
+        return showtime_data
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch showtimes data. Please try again later."
+        )
+
+@app.get("/api/showtimes/by-date/{date}")
+async def get_showtimes_by_date(date: str):
+    showtime_data = db.showtimes.find_one()
+    if not showtime_data:
+        raise HTTPException(status_code=404, detail="No showtime data found")
+    
+    for day in ["today", "tomorrow", "wednesday"]:
+        day_data = showtime_data.get(day, {})
+        if day_data.get("date") == date:
+            return day_data
+    
+    raise HTTPException(status_code=404, detail=f"No showtimes found for date {date}")
+
+@app.get("/api/showtimes/by-movie/{movie_title}")
+async def get_movie_showtimes(movie_title: str):
+    showtime_data = db.showtimes.find_one()
+    if not showtime_data:
+        raise HTTPException(status_code=404, detail="No showtime data found")
+    
+    result = []
+    for day in ["today", "tomorrow", "wednesday"]:
+        day_data = showtime_data.get(day, {})
+        for movie in day_data.get("movies", []):
+            if movie["title"] == movie_title: 
+                movie_info = {
+                    "date": day_data["date"],
+                    "movie": {
+                        "title": movie["title"],
+                        "image": movie["image"],
+                        "duration": movie["duration"],
+                        "rating": movie["rating"],
+                        "genre": movie["genre"]
+                    },
+                    "theaters": movie["theaters"]
+                }
+                result.append(movie_info)
+    
+    if not result:
+        raise HTTPException(status_code=404, detail=f"No showtimes found for movie {movie_title}")
+        
+    return result
+
+@app.get("/api/seats/{showtime_id}")
+async def get_showtime_seats(showtime_id: str):
+    seats = db.seats.find({
+        "showtime_id": showtime_id
+    })
+    seat_list = []
+    for seat in seats:
+        seat["_id"] = str(seat["_id"])  # Convert ObjectId to string
+        seat_list.append(seat)
+    return seat_list
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -427,13 +551,22 @@ def custom_openapi():
         return app.openapi_schema
     
     try:
-        with open("Server/swagger.json", "r", encoding="utf-8") as f:
+        with open("swagger.json", "r", encoding="utf-8") as f:
             openapi_schema = json.load(f)
-        app.openapi_schema = openapi_schema
+            app.openapi_schema = openapi_schema
+            return app.openapi_schema
     except Exception as e:
         print(f"Error loading swagger.json: {e}")
-        return JSONResponse(content={"error": "Could not load API documentation"}, status_code=500)
-    
+        # Return a basic OpenAPI schema instead of JSONResponse
+        return {
+            "openapi": "3.0.0",
+            "info": {
+                "title": "Cinema Authentication API",
+                "description": "API cho hệ thống xác thực người dùng của ứng dụng Cinema",
+                "version": "1.0.0"
+            },
+            "paths": {}
+        }
     return app.openapi_schema
 
 app.openapi = custom_openapi

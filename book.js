@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Existing modal code
     const modal = document.getElementById('seatModal');
-    const showtimeBtns = document.querySelectorAll('.showtime-btn');
     const closeBtn = document.querySelector('.close-modal');
     const seatingPlan = document.querySelector('.seating-plan');
     const selectedSeatsText = document.getElementById('selectedSeatsText');
@@ -14,7 +14,143 @@ document.addEventListener('DOMContentLoaded', function() {
         couple: 200000
     };
 
-    // Tạo sơ đồ ghế
+    // ---- Fetch showtime data from API ----
+    async function fetchShowtimes() {
+        try {
+            const response = await fetch('http://localhost:8000/api/showtimes');
+            if (!response.ok) {
+                throw new Error('Failed to fetch showtimes');
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching showtimes:', error);
+            return null;
+        }
+    }
+
+    // Render movie schedules based on selected date
+    async function renderMovieSchedules(dateKey) {
+        const movieSchedulesContainer = document.querySelector('.movie-schedules');
+        movieSchedulesContainer.innerHTML = '<p class="loading">Đang tải lịch chiếu...</p>';
+        
+        try {
+            const showtimeData = await fetchShowtimes();
+            if (!showtimeData || !showtimeData[dateKey]) {
+                movieSchedulesContainer.innerHTML = '<p class="no-data">Không có lịch chiếu cho ngày này</p>';
+                return;
+            }
+            
+            const movies = showtimeData[dateKey].movies;
+            if (!movies || movies.length === 0) {
+                movieSchedulesContainer.innerHTML = '<p class="no-data">Không có phim chiếu trong ngày này</p>';
+                return;
+            }
+            
+            // Clear the container
+            movieSchedulesContainer.innerHTML = '';
+            
+            // Render each movie
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.className = 'movie-schedule-card';
+                
+                // Create movie info section
+                const movieInfoHTML = `
+                    <div class="movie-info">
+                        <img src="${movie.image}" alt="${movie.title}">
+                        <div class="movie-details">
+                            <h3>${movie.title}</h3>
+                            <p class="movie-meta">
+                                <span class="duration"><i class="far fa-clock"></i> ${movie.duration}</span>
+                                <span class="rating">${movie.rating}</span>
+                            </p>
+                            <p class="genre">Thể loại: ${movie.genre}</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Create showtime list section
+                let showtimeListHTML = '<div class="showtime-list">';
+                
+                movie.theaters.forEach(theater => {
+                    showtimeListHTML += `
+                        <div class="cinema-group">
+                            <h4>${theater.name}</h4>
+                            <div class="showtimes">
+                    `;
+                    
+                    theater.showtimes.forEach(showtime => {
+                        showtimeListHTML += `
+                            <a href="#" class="showtime-btn" data-movie="${movie.title}" data-time="${showtime.time}" data-theater="${theater.name}">
+                                <span class="time">${showtime.time}</span>
+                                <span class="seats">${showtime.available_seats} ghế trống</span>
+                            </a>
+                        `;
+                    });
+                    
+                    showtimeListHTML += '</div></div>';
+                });
+                
+                showtimeListHTML += '</div>';
+                
+                // Combine and add to the container
+                movieCard.innerHTML = movieInfoHTML + showtimeListHTML;
+                movieSchedulesContainer.appendChild(movieCard);
+            });
+            
+            // Add event listeners to the newly created showtime buttons
+            attachShowtimeEvents();
+            
+        } catch (error) {
+            console.error('Error rendering movie schedules:', error);
+            movieSchedulesContainer.innerHTML = '<p class="error">Đã xảy ra lỗi khi tải lịch chiếu</p>';
+        }
+    }
+    
+    // Attach event listeners to showtime buttons
+    function attachShowtimeEvents() {
+        const showtimeBtns = document.querySelectorAll('.showtime-btn');
+        showtimeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // You can use data attributes to store movie, theater and time info
+                const movieTitle = btn.dataset.movie;
+                const theaterName = btn.dataset.theater;
+                const showtime = btn.dataset.time;
+                
+                // You can display this info in the modal if needed
+                const modalHeader = document.querySelector('.modal-header h2');
+                modalHeader.textContent = `Chọn Ghế: ${movieTitle} - ${theaterName} - ${showtime}`;
+                
+                modal.style.display = 'block';
+                createSeatingPlan();
+            });
+        });
+    }
+
+    // Map date selectors to API date keys
+    const dateKeyMap = {
+        0: 'today',
+        1: 'tomorrow',
+        2: 'wednesday' // For the third day
+    };
+
+    // Xử lý sự kiện click vào date selector
+    const dateSelectors = document.querySelectorAll('.date-selector');
+    dateSelectors.forEach((selector, index) => {
+        selector.addEventListener('click', () => {
+            // Remove active class from all selectors
+            dateSelectors.forEach(s => s.classList.remove('active'));
+            // Add active class to clicked selector
+            selector.classList.add('active');
+            
+            // Render movie schedules for the selected date
+            renderMovieSchedules(dateKeyMap[index]);
+        });
+    });
+
+    // Existing seating plan functions
     function createSeatingPlan() {
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         seatingPlan.innerHTML = '';
@@ -80,15 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         totalAmount.textContent = `${total.toLocaleString()}đ`;
     }
 
-    // Event Listeners
-    showtimeBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.style.display = 'block';
-            createSeatingPlan();
-        });
-    });
-
+    // Modal event listeners
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
@@ -151,17 +279,9 @@ document.addEventListener('DOMContentLoaded', function() {
         dateSelectors[2].dataset.date = dayAfter.toISOString();
     }
 
-    // Xử lý sự kiện click vào date selector
-    const dateSelectors = document.querySelectorAll('.date-selector');
-    dateSelectors.forEach(selector => {
-        selector.addEventListener('click', () => {
-            // Remove active class from all selectors
-            dateSelectors.forEach(s => s.classList.remove('active'));
-            // Add active class to clicked selector
-            selector.classList.add('active');
-        });
-    });
-
-    // Khởi tạo dates
+    // Initialize the page
     updateDateSelectors();
+    
+    // Load today's movie schedules by default
+    renderMovieSchedules('today');
 });

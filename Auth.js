@@ -1,6 +1,6 @@
 console.log('Auth.js loaded');
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://localhost:8000'; 
 
 // Kiểm tra trạng thái đăng nhập ngay khi file được load
 document.addEventListener('DOMContentLoaded', checkLoginStatus);

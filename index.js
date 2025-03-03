@@ -1,82 +1,83 @@
-// Initialize Swiper
-const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    direction: 'horizontal',
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-    },
-
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
-
-// Smooth scroll for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const section = document.querySelector(this.getAttribute('href'));
-        if (section) {
-            section.scrollIntoView({
-                behavior: 'smooth'
-            });
+const API_URL = 'http://localhost:8000';
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Swiper
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
         }
     });
-});
 
-//LOAD FILM
+    // Function to fetch movie data
+    async function fetchMovies() {
+        try {
+            // Fetch currently showing movies
+            const nowShowingResponse = await fetch(`${API_URL}/api/movies/now-showing`);
+            const nowShowingData = await nowShowingResponse.json();
 
-$(document).ready(function () {
-    // Load Now Showing movies
-    $.getJSON("assets/Movie_data.json", function (data) {
-        let movieSection = $(".movies-section .movie-grid");
-        movieSection.empty(); // Xóa nội dung mặc định
+            // Fetch upcoming movies
+            const upcomingResponse = await fetch(`${API_URL}/api/movies/coming-soon`);
+            const upcomingData = await upcomingResponse.json();
 
-        data.movies.forEach(movie => {
-            let movieCard = `
+            // Function to get proper image URL
+            function getProperImageUrl(url) {
+                // Handle Bing image URLs
+                if (url.includes('th.bing.com')) {
+                    // Remove size constraints from Bing URLs
+                    return url.replace(/&w=\d+&h=\d+/, '&w=300&h=450');
+                }
+                // Handle Moveek URLs
+                if (url.includes('moveek.com')) {
+                    // URLs are already in good format
+                    return url;
+                }
+                // Handle TMDb URLs
+                if (url.includes('themoviedb.org')) {
+                    // URLs are already in good format
+                    return url;
+                }
+                return url;
+            }
+
+            // Update Now Showing section
+            const nowShowingGrid = document.querySelector('.movies-section:not(.coming-soon) .movie-grid');
+            nowShowingGrid.innerHTML = nowShowingData.map(movie => `
                 <div class="movie-card">
-                    <img src="${movie.image}" alt="${movie.title}">
+                    <img src="${getProperImageUrl(movie.image)}" alt="${movie.title}">
                     <h3>${movie.title}</h3>
                     <p>Thể loại: ${movie.genre}</p>
                     <p>Thời lượng: ${movie.duration}</p>
-                    <button class="book-now">${movie.buttonText}</button>
+                    <button class="book-now">Đặt vé ngay</button>
                 </div>
-            `;
-            movieSection.append(movieCard);
-        });
-    }).fail(function () {
-        console.log("Không thể tải dữ liệu phim đang chiếu.");
-    });
+            `).join('');
 
-    // Load Coming Soon movies
-    $.getJSON("assets/Movie_comming.json", function (data) {
-        let comingSection = $(".movies-section.coming-soon .movie-grid");
-        comingSection.empty(); // Xóa nội dung mặc định
-
-        data.movies.forEach(movie => {
-            let movieCard = `
+            // Update Coming Soon section
+            const comingSoonGrid = document.querySelector('.movies-section.coming-soon .movie-grid');
+            comingSoonGrid.innerHTML = upcomingData.map(movie => `
                 <div class="movie-card">
-                    <img src="${movie.image}" alt="${movie.title}">
+                    <img src="${getProperImageUrl(movie.image)}" alt="${movie.title}">
                     <h3>${movie.title}</h3>
                     <p>Thể loại: ${movie.genre}</p>
                     <p>Thời lượng: ${movie.duration}</p>
-                    <button class="notify-me">${movie.buttonText}</button>
+                    <button class="notify-me">Xem trailer</button>
                 </div>
-            `;
-            comingSection.append(movieCard);
-        });
-    }).fail(function () {
-        console.log("Không thể tải dữ liệu phim sắp chiếu.");
-    });
+            `).join('');
+
+        } catch (error) {
+            console.error('Error fetching movie data:', error);
+        }
+    }
+
+    // Call the fetchMovies function
+    fetchMovies();
 });
 
