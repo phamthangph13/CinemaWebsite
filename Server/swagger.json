@@ -12,6 +12,226 @@
     }
   ],
   "paths": {
+    "/api/movies/now-showing": {
+      "get": {
+        "tags": ["Movies"],
+        "summary": "Get currently showing movies",
+        "responses": {
+          "200": {
+            "description": "List of currently showing movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/movies/coming-soon": {
+      "get": {
+        "tags": ["Movies"],
+        "summary": "Get upcoming movies",
+        "responses": {
+          "200": {
+            "description": "List of upcoming movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/showtimes": {
+      "get": {
+        "tags": ["Showtimes"],
+        "summary": "Get all showtimes data",
+        "responses": {
+          "200": {
+            "description": "Complete showtime data including all days",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "today": {
+                      "$ref": "#/components/schemas/DayShowtimes"
+                    },
+                    "tomorrow": {
+                      "$ref": "#/components/schemas/DayShowtimes"
+                    },
+                    "wednesday": {
+                      "$ref": "#/components/schemas/DayShowtimes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No showtime data found"
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/showtimes/by-date/{date}": {
+      "get": {
+        "tags": ["Showtimes"],
+        "summary": "Get showtimes for a specific date",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date in format MM/DD"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Showtime data for the specified date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DayShowtimes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No showtimes found for the specified date"
+          }
+        }
+      }
+    },
+    "/api/showtimes/by-movie/{movie_title}": {
+      "get": {
+        "tags": ["Showtimes"],
+        "summary": "Get showtimes for a specific movie",
+        "parameters": [
+          {
+            "name": "movie_title",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Title of the movie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Showtime data for the specified movie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string"
+                      },
+                      "movie": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          },
+                          "duration": {
+                            "type": "string"
+                          },
+                          "rating": {
+                            "type": "string"
+                          },
+                          "genre": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "theaters": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "showtimes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No showtime data found"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "tags": ["Authentication"],
@@ -508,14 +728,38 @@
         }
       }
     },
-    "/api/seats/{showtime_id}": {
+    "/api/showtime-seats": {
       "get": {
         "tags": ["Seats"],
         "summary": "Get seats status for a specific showtime",
         "parameters": [
           {
-            "name": "showtime_id",
-            "in": "path",
+            "name": "movie",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "theater",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "time",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string"
@@ -524,21 +768,25 @@
         ],
         "responses": {
           "200": {
-            "description": "List of seats and their status",
+            "description": "Showtime seats information",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "seat_id": {
-                        "type": "string"
-                      },
-                      "status": {
-                        "type": "string",
-                        "enum": ["available", "booked", "reserved"]
-                      }
+                  "$ref": "#/components/schemas/ShowtimeSeats"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Internal server error while fetching seat data"
                     }
                   }
                 }
@@ -551,6 +799,55 @@
   },
   "components": {
     "schemas": {
+      "DayShowtimes": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Date in MM/DD format"
+          },
+          "movies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "duration": {
+                  "type": "string"
+                },
+                "rating": {
+                  "type": "string"
+                },
+                "genre": {
+                  "type": "string"
+                },
+                "theaters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "showtimes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "ShowtimeResponse": {
         "type": "object",
         "properties": {
@@ -569,6 +866,29 @@
           "available_seats": {
             "type": "integer",
             "description": "Number of available seats"
+          }
+        }
+      },
+      "ShowtimeSeats": {
+        "type": "object",
+        "properties": {
+          "movie_title": {
+            "type": "string"
+          },
+          "theater_name": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "occupiedSeats": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },

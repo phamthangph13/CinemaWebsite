@@ -1,0 +1,398 @@
+{
+    "bookings": [],
+    "showtime_seats": [
+        {
+            "_id": "67c72f1c030c65640f73ce30",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "10:30",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce31",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "13:15",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce32",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "16:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce33",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "18:45",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce34",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 2 - 4DX",
+            "date": "03/03",
+            "time": "11:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce35",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 2 - 4DX",
+            "date": "03/03",
+            "time": "14:30",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce36",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 2 - 4DX",
+            "date": "03/03",
+            "time": "17:15",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce37",
+            "movie_title": "Dune: Hành Tinh Cát - Phần 2",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "09:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce38",
+            "movie_title": "Dune: Hành Tinh Cát - Phần 2",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "12:30",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce39",
+            "movie_title": "Dune: Hành Tinh Cát - Phần 2",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "03/03",
+            "time": "15:45",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce3a",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "04/03",
+            "time": "10:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce3b",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "04/03",
+            "time": "13:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce3c",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "04/03",
+            "time": "16:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce3d",
+            "movie_title": "Dune: Hành Tinh Cát - Phần 2",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "05/03",
+            "time": "09:30",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce3e",
+            "movie_title": "Dune: Hành Tinh Cát - Phần 2",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "05/03",
+            "time": "13:00",
+            "available_seats": []
+        },
+        {
+            "_id": "67c72f1c030c65640f73ce3f",
+            "movie_title": "Dune: Hành Tinh Cát - Phần 2",
+            "theater_name": "Rạp 1 - IMAX",
+            "date": "05/03",
+            "time": "16:30",
+            "available_seats": []
+        },
+        {
+            "_id": "67c73640054f794e8f871669",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới - Rạp 1",
+            "theater_name": "IMAX",
+            "date": "2025-03-04T17:19:54.621Z",
+            "time": "10:30",
+            "booked_seats": [
+                {
+                    "seat_id": "B6"
+                },
+                {
+                    "seat_id": "A1"
+                },
+                {
+                    "seat_id": "B3"
+                }
+            ]
+        },
+        {
+            "_id": "67c73653054f794e8f87166b",
+            "movie_title": "Godzilla x Kong: Đế Chế Mới - Rạp 1",
+            "theater_name": "IMAX",
+            "date": "2025-03-04T17:19:54.621Z",
+            "time": "13:15",
+            "booked_seats": [
+                {
+                    "seat_id": "A1"
+                },
+                {
+                    "seat_id": "A2"
+                },
+                {
+                    "seat_id": "H11"
+                }
+            ]
+        }
+    ],
+    "showtimes": [
+        {
+            "_id": "67c5c4b7252d1107bb001cca",
+            "today": {
+                "date": "03/03",
+                "movies": [
+                    {
+                        "title": "Godzilla x Kong: Đế Chế Mới",
+                        "image": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lTpnAtn1hWXDLxEmkD28l6UyPlF.jpg",
+                        "duration": "115 phút",
+                        "rating": "C13",
+                        "genre": "Hành động, Phiêu lưu",
+                        "theaters": [
+                            {
+                                "name": "Rạp 1 - IMAX",
+                                "showtimes": [
+                                    {
+                                        "time": "10:30",
+                                        "available_seats": 85
+                                    },
+                                    {
+                                        "time": "13:15",
+                                        "available_seats": 120
+                                    },
+                                    {
+                                        "time": "16:00",
+                                        "available_seats": 95
+                                    },
+                                    {
+                                        "time": "18:45",
+                                        "available_seats": 150
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Rạp 2 - 4DX",
+                                "showtimes": [
+                                    {
+                                        "time": "11:00",
+                                        "available_seats": 70
+                                    },
+                                    {
+                                        "time": "14:30",
+                                        "available_seats": 100
+                                    },
+                                    {
+                                        "time": "17:15",
+                                        "available_seats": 90
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Dune: Hành Tinh Cát - Phần 2",
+                        "image": "https://th.bing.com/th?id=OSK.7ZTAP31F9iuIrYtqx6mEzU10efR-m0iH-9B_CUGr3k8&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+                        "duration": "166 phút",
+                        "rating": "C16",
+                        "genre": "Khoa học viễn tưởng",
+                        "theaters": [
+                            {
+                                "name": "Rạp 1 - IMAX",
+                                "showtimes": [
+                                    {
+                                        "time": "09:00",
+                                        "available_seats": 100
+                                    },
+                                    {
+                                        "time": "12:30",
+                                        "available_seats": 85
+                                    },
+                                    {
+                                        "time": "15:45",
+                                        "available_seats": 120
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "tomorrow": {
+                "date": "04/03",
+                "movies": [
+                    {
+                        "title": "Godzilla x Kong: Đế Chế Mới",
+                        "image": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lTpnAtn1hWXDLxEmkD28l6UyPlF.jpg",
+                        "duration": "115 phút",
+                        "rating": "C13",
+                        "genre": "Hành động, Phiêu lưu",
+                        "theaters": [
+                            {
+                                "name": "Rạp 1 - IMAX",
+                                "showtimes": [
+                                    {
+                                        "time": "10:00",
+                                        "available_seats": 150
+                                    },
+                                    {
+                                        "time": "13:00",
+                                        "available_seats": 150
+                                    },
+                                    {
+                                        "time": "16:00",
+                                        "available_seats": 150
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "wednesday": {
+                "date": "05/03",
+                "movies": [
+                    {
+                        "title": "Dune: Hành Tinh Cát - Phần 2",
+                        "image": "https://th.bing.com/th?id=OSK.7ZTAP31F9iuIrYtqx6mEzU10efR-m0iH-9B_CUGr3k8&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+                        "duration": "166 phút",
+                        "rating": "C16",
+                        "genre": "Khoa học viễn tưởng",
+                        "theaters": [
+                            {
+                                "name": "Rạp 1 - IMAX",
+                                "showtimes": [
+                                    {
+                                        "time": "09:30",
+                                        "available_seats": 150
+                                    },
+                                    {
+                                        "time": "13:00",
+                                        "available_seats": 150
+                                    },
+                                    {
+                                        "time": "16:30",
+                                        "available_seats": 150
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "movies": [
+        {
+            "_id": "67c5c0f46eea95cfcb071718",
+            "title": "Godzilla x Kong: Đế Chế Mới",
+            "genre": "Hành động, Phiêu lưu",
+            "duration": "115 phút",
+            "image": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lTpnAtn1hWXDLxEmkD28l6UyPlF.jpg",
+            "status": "Now Showing"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb071719",
+            "title": "Dune: Hành Tinh Cát - Phần 2",
+            "genre": "Khoa học viễn tưởng",
+            "duration": "166 phút",
+            "image": "https://th.bing.com/th?id=OSK.7ZTAP31F9iuIrYtqx6mEzU10efR-m0iH-9B_CUGr3k8&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+            "status": "Now Showing"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb07171a",
+            "title": "Kung Fu Panda 4",
+            "genre": "Hoạt hình, Hài hước",
+            "duration": "94 phút",
+            "image": "https://th.bing.com/th?id=OSK.d2jRLfuQqcOLdOtXWhXC8BV3KOBW1-HHQRfLExmJjrU&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+            "status": "Now Showing"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb07171b",
+            "title": "Na Tra: Ma đồng giáng thế",
+            "genre": "Hoạt hình, Hài hướchước",
+            "duration": "118 phút",
+            "image": "https://th.bing.com/th?id=OSK.VcAFFw5Wu6xKIAjqklRUpeCkUJBCwRa_QDr8R999jiI&w=46&h=46&c=11&rs=1&qlt=80&o=6&dpr=2&pid=SANGAM",
+            "status": "Now Showing"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb07171c",
+            "title": "Hiến mẹ cho quỷ",
+            "genre": "Kinh dị, Tâm lý",
+            "duration": "115 phút",
+            "image": "https://cdn.moveek.com/storage/media/cache/short/67adfbca424ea614056260.jpg",
+            "status": "Coming Soon"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb07171d",
+            "title": "Chốt đơn!",
+            "genre": "Tình cảm, Hài hước",
+            "duration": "166 phút",
+            "image": "https://cdn.moveek.com/storage/media/cache/short/676cd55741ecc043032951.jpg",
+            "status": "Coming Soon"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb07171e",
+            "title": "Quỷ nhập tràng",
+            "genre": "Kinh dị, Tâm lý",
+            "duration": "94 phút",
+            "image": "https://cdn.moveek.com/storage/media/cache/short/67888d39341bb229071323.jpg",
+            "status": "Coming Soon"
+        },
+        {
+            "_id": "67c5c0f46eea95cfcb07171f",
+            "title": "Âm dương lộ",
+            "genre": "Kinh dị, Tâm lý",
+            "duration": "118 phút",
+            "image": "https://cdn.moveek.com/storage/media/cache/short/67204c7ac79c4986429421.jpg",
+            "status": "Coming Soon"
+        }
+    ],
+    "Users": [
+        {
+            "_id": "67c5beedf9df5388d01a0ff1",
+            "email": "winnieph13@gmail.com",
+            "fullname": "Phạm Như Thắng",
+            "password": "$2b$12$ft.OhAg3jTbE39guPqGD4uR6b5lBT4d5pgd5zOvbaYspxEVphk3km",
+            "verified": true,
+            "created_at": "2025-03-03T14:38:37.508000"
+        },
+        {
+            "_id": "67c5bf35f9df5388d01a0ff2",
+            "email": "phamthangofficical@gmail.com",
+            "fullname": "Mai Tiến Mạnh",
+            "password": "$2b$12$hJWxeg8lI1ONlBVdqi36VuEDjUeBTZUJgtUsTTKY9i1JttY/TE.za",
+            "verified": false,
+            "created_at": "2025-03-03T14:39:49.062000"
+        }
+    ]
+}

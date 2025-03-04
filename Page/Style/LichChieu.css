@@ -275,39 +275,37 @@
     font-size: 12px;
     transition: all 0.3s ease;
 }
-
 .seat.available {
     background-color: #404040;
 }
-
 .seat.occupied {
-    background-color: #e50914;
+    background-color: #e50914 !important;
     cursor: not-allowed;
+    position: relative;
+    color: white;
+    border: none;
 }
-
+.seat.occupied::before {
+    display: none;
+}
 .seat.selected {
     background-color: #2ecc71;
 }
-
 .seat.vip {
     background-color: #404040;
     border: 2px solid #ffd700;
 }
-
 .seat.vip.selected {
     background-color: #2ecc71;
 }
-
 .seat.couple {
     background-color: #404040;
     width: 70px;
     border: 2px solid #ff69b4;
 }
-
 .seat.couple.selected {
     background-color: #2ecc71;
 }
-
 .booking-summary {
     margin-top: 20px;
     padding: 20px;
@@ -315,7 +313,6 @@
     border-radius: 8px;
     text-align: center;
 }
-
 .book-seats-btn {
     background-color: #e50914;
     color: white;
@@ -327,7 +324,6 @@
     font-size: 16px;
     transition: all 0.3s ease;
 }
-
 .book-seats-btn:hover {
     background-color: #ff0f1a;
 }

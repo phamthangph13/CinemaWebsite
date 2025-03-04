@@ -24,36 +24,18 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import JSONResponse, HTMLResponse
 import json
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(
-    title="Cinema Authentication API",
-    description="API cho hệ thống xác thực người dùng của ứng dụng Cinema",
-    version="1.0.0",
-    docs_url=None,  # Disable default docs
-    redoc_url=None  # Disable default redoc
-)
+app = FastAPI()
 
-# CORS middleware
-# CORS configuration
-origins = [
-    "http://localhost:3000",  # React development server
-    "http://localhost:5173",  # Vite development server
-    "http://127.0.0.1:5173",  # Alternative Vite URL
-    "http://localhost:8080",  # Alternative development port
-    "http://127.0.0.1:5500",  # Live Server port
-    "file://",  # Local file system
-    "http://127.0.0.1:8000",
-    "null"  # Handle requests with no origin
-]
-
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["http://127.0.0.1:5500"],  # Your frontend origin
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "Accept"],
-    expose_headers=["*"],
-    max_age=600,  # Cache preflight requests for 10 minutes
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # MongoDB connection
@@ -90,7 +72,6 @@ class ResetPassword(BaseModel):
     token: str
     new_password: str
 
-
 # Add these new models after the existing models
 class Movie(BaseModel):
     id: str
@@ -109,7 +90,97 @@ class Showtime(BaseModel):
     start_time: datetime
     end_time: datetime
     available_seats: List[str]
+# Booking model
+class BookingRequest(BaseModel):
+    movie_title: str
+    theater_name: str
+    date: str
+    time: str
+    seats: List[str]
+    user_email: str
 
+def normalize_name(name):
+    # Bỏ hậu tố kiểu " - Rạp 1" hoặc các ký tự phụ
+    return name.replace("- Rạp 1", "").strip()
+
+@app.post("/api/book-seats")
+async def book_seats(booking: BookingRequest):
+    try:
+        print(f"📥 Booking request received: {booking.dict()}")
+
+        # Normalize tên phim và rạp để tăng khả năng khớp
+        normalized_movie_title = normalize_name(booking.movie_title)
+        normalized_theater_name = normalize_name(booking.theater_name)
+
+        # Tìm theo logic mềm (cho phép khớp gần đúng)
+        showtime = db.showtime_seats.find_one({
+            "movie_title": {"$regex": normalized_movie_title, "$options": "i"},
+            "theater_name": {"$regex": normalized_theater_name, "$options": "i"},
+            "date": booking.date,
+            "time": booking.time
+        })
+
+        if not showtime:
+            print(f"❌ Không tìm thấy suất chiếu. Log toàn bộ suất chiếu hiện tại cho phim '{booking.movie_title}'")
+            all_showtimes = list(db.showtime_seats.find({
+                "movie_title": {"$regex": normalized_movie_title, "$options": "i"}
+            }))
+            for st in all_showtimes:
+                print(f"🎥 Movie: {st['movie_title']}, Theater: {st['theater_name']}, Date: {st['date']}, Time: {st['time']}")
+
+            raise HTTPException(
+                status_code=404,
+                detail=f"Không tìm thấy suất chiếu '{booking.movie_title}' tại '{booking.theater_name}' ngày {booking.date} lúc {booking.time}."
+            )
+
+        # Check ghế đã được đặt chưa
+        existing_booked_seats = showtime.get('booked_seats', [])
+        existing_booked_seat_ids = [seat['seat_id'] for seat in existing_booked_seats]
+        overlapping_seats = set(booking.seats) & set(existing_booked_seat_ids)
+
+        if overlapping_seats:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Các ghế {', '.join(overlapping_seats)} đã được đặt trước."
+            )
+
+        # Cập nhật ghế đã đặt
+        new_booked_seats = [{'seat_id': seat} for seat in booking.seats]
+        db.showtime_seats.update_one(
+            {"_id": showtime['_id']},
+            {"$push": {"booked_seats": {"$each": new_booked_seats}}}
+        )
+
+        # Tạo bản ghi booking
+        booking_record = {
+            "user_email": booking.user_email,
+            "movie_title": booking.movie_title,
+            "theater_name": booking.theater_name,
+            "date": booking.date,
+            "time": booking.time,
+            "seats": booking.seats,
+            "booking_time": datetime.now()
+        }
+        result = db.bookings.insert_one(booking_record)
+
+        return {
+            "message": "Đặt vé thành công!",
+            "booking_id": str(result.inserted_id),
+            "seats": booking.seats
+        }
+
+    except HTTPException as http_exc:
+        raise http_exc
+    except Exception as e:
+        print(f"🔥 Error processing booking: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Lỗi hệ thống khi xử lý đặt vé: {str(e)}"
+        )
+
+    
+
+ 
 # Add these new endpoints before the custom_openapi function
 @app.get("/api/movies/now-showing")
 async def get_now_showing_movies():
@@ -120,8 +191,66 @@ async def get_now_showing_movies():
     for movie in movies:
         movie["_id"] = str(movie["_id"])  # Convert ObjectId to string
         movie_list.append(movie)
-    return movie_list
+    return movie_list 
+    
+@app.get("/api/showtime-seats")
+async def get_showtime_seats(movie: str, theater: str, date: str, time: str):
+    try:
+        # More flexible query to handle potential variations
+        query = {
+            "movie_title": movie,
+            "theater_name": theater,
+            "date": date,
+            "time": time
+        }
+        
+        print(f"Searching for showtime with query: {query}")
+        showtime_seats = db.showtime_seats.find_one(query)
 
+        if not showtime_seats:
+            # If no exact match, try a more lenient search
+            similar_showtime = db.showtime_seats.find_one({
+                "movie_title": {"$regex": movie, "$options": "i"},
+                "theater_name": {"$regex": theater, "$options": "i"},
+                "date": date,
+                "time": time
+            })
+            
+            if similar_showtime:
+                showtime_seats = similar_showtime
+            else:
+                # If still no match, return a default layout
+                print(f"No showtime found for query: {query}")
+                return {
+                    "movie_title": movie,
+                    "theater_name": theater,
+                    "date": date,
+                    "time": time,
+                    "occupiedSeats": []  # Empty list means all seats are available
+                }
+
+        # Convert ObjectId to string for JSON serialization
+        showtime_seats["_id"] = str(showtime_seats["_id"])
+        
+        # Get list of occupied seats
+        booked_seats = showtime_seats.get('booked_seats', [])
+        occupied_seats = [seat['seat_id'] for seat in booked_seats] if booked_seats else []
+        
+        # Format the response
+        return {
+            "movie_title": showtime_seats["movie_title"],
+            "theater_name": showtime_seats["theater_name"],
+            "date": showtime_seats["date"],
+            "time": showtime_seats["time"],
+            "occupiedSeats": occupied_seats
+        }
+    except Exception as e:
+        print(f"Error in get_showtime_seats: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal server error while fetching seat data: {str(e)}"
+        )
+        
 @app.get("/api/movies/coming-soon") 
 async def get_coming_soon_movies():
     movies = db.movies.find({
@@ -132,20 +261,23 @@ async def get_coming_soon_movies():
         movie["_id"] = str(movie["_id"])  # Convert ObjectId to string
         movie_list.append(movie)
     return movie_list
-
 @app.get("/api/showtimes") 
 async def get_all_showtimes():
     try:
+        # Directly return the first document in showtimes collection
         showtime_data = db.showtimes.find_one()
         if not showtime_data:
             raise HTTPException(status_code=404, detail="No showtime data found")
-        # Convert ObjectId to string
+        
+        # Ensure the ObjectId is converted to string
         showtime_data["_id"] = str(showtime_data["_id"])
+        
         return showtime_data
     except Exception as e:
+        print(f"Error fetching showtimes: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to fetch showtimes data. Please try again later."
+            detail=f"Failed to fetch showtimes data: {str(e)}"
         )
 
 @app.get("/api/showtimes/by-date/{date}")
@@ -160,7 +292,6 @@ async def get_showtimes_by_date(date: str):
             return day_data
     
     raise HTTPException(status_code=404, detail=f"No showtimes found for date {date}")
-
 @app.get("/api/showtimes/by-movie/{movie_title}")
 async def get_movie_showtimes(movie_title: str):
     showtime_data = db.showtimes.find_one()
@@ -189,7 +320,6 @@ async def get_movie_showtimes(movie_title: str):
         raise HTTPException(status_code=404, detail=f"No showtimes found for movie {movie_title}")
         
     return result
-
 @app.get("/api/seats/{showtime_id}")
 async def get_showtime_seats(showtime_id: str):
     seats = db.seats.find({
@@ -200,9 +330,7 @@ async def get_showtime_seats(showtime_id: str):
         seat["_id"] = str(seat["_id"])  # Convert ObjectId to string
         seat_list.append(seat)
     return seat_list
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
 # Hàm tiện ích
 def create_jwt_token(data: dict):
     to_encode = data.copy()
@@ -210,19 +338,16 @@ def create_jwt_token(data: dict):
     to_encode.update({"exp": expire})
     encoded_jwt = PyJWT.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
-
 def send_email(to_email: str, subject: str, body: str):
     msg = MIMEMultipart()
     msg['From'] = EMAIL_USER
     msg['To'] = to_email
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'html'))
-
     with smtplib.SMTP(EMAIL_HOST, EMAIL_PORT) as server:
         server.starttls()
         server.login(EMAIL_USER, EMAIL_PASSWORD)
         server.send_message(msg)
-
 # API endpoints
 @app.post("/register")
 async def register(user: UserRegister):
@@ -260,7 +385,6 @@ async def register(user: UserRegister):
     send_email(user.email, "Xác thực tài khoản", email_body)
     
     return {"message": "Đăng ký thành công. Vui lòng kiểm tra email để xác thực tài khoản."}
-
 @app.post("/login")
 async def login(user: UserLogin):
     db_user = users_collection.find_one({"email": user.email})
@@ -275,7 +399,6 @@ async def login(user: UserLogin):
     
     access_token = create_jwt_token({"email": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
-
 @app.get("/verify-email")  # Đổi từ POST sang GET
 async def verify_email(token: str):
     try:
@@ -332,7 +455,6 @@ async def verify_email(token: str):
         raise HTTPException(status_code=400, detail="Token đã hết hạn")
     except PyJWT.JWTError:
         raise HTTPException(status_code=400, detail="Token không hợp lệ")
-
 @app.post("/forgot-password")
 async def forgot_password(forgot_pwd: ForgotPassword):
     user = users_collection.find_one({"email": forgot_pwd.email})
@@ -354,7 +476,6 @@ async def forgot_password(forgot_pwd: ForgotPassword):
     send_email(forgot_pwd.email, "Đặt lại mật khẩu", email_body)
     
     return {"message": "Email đặt lại mật khẩu đã được gửi"}
-
 @app.post("/reset-password")
 async def reset_password(reset_pwd: ResetPassword):
     try:
@@ -382,7 +503,6 @@ async def reset_password(reset_pwd: ResetPassword):
         raise HTTPException(status_code=400, detail="Token đã hết hạn")
     except PyJWT.JWTError:
         raise HTTPException(status_code=400, detail="Token không hợp lệ")
-
 @app.get("/reset-password")
 async def reset_password_page(token: str):
     try:
@@ -526,7 +646,6 @@ async def reset_password_page(token: str):
                 </body>
             </html>
         """)
-
 # Middleware để xác thực JWT token
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
@@ -544,7 +663,6 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise HTTPException(status_code=401, detail="Người dùng không tồn tại")
     
     return user
-
 # Custom OpenAPI schema
 def custom_openapi():
     if app.openapi_schema:
@@ -583,3 +701,4 @@ async def custom_swagger_ui_html():
 @app.get("/openapi.json", include_in_schema=False)
 async def get_openapi_json():
     return app.openapi_schema
+# Add these models after your existing models
